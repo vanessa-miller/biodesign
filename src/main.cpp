@@ -1,14 +1,5 @@
 #include <Arduino.h>
 
-const int ledPin = LED_BUILTIN;  // pin 13 on Teensy 4.1
-
-void setup() {
-  pinMode(ledPin, OUTPUT);
-}
-
-void loop() {
-  digitalWrite(ledPin, HIGH);
-  delay(250);
-  digitalWrite(ledPin, LOW);
-  delay(250);
-}
+// This project uses the Arduino entry points defined in hah.cpp.
+// Keeping setup() and loop() in only one source file avoids duplicate
+// symbol definitions when the PlatformIO build compiles all files in src/.
