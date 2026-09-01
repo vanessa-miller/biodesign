@@ -1,7 +1,9 @@
 #include <Audio.h>
 
-const int ledPin = LED_BUILTIN;   // pin 13
+const int ledPin = LED_BUILTIN;
 int soundThreshold = 1500;
+
+const int plotEvery = 8;   // plot 1 out of every N buffers — raise for slower plot
 
 AudioInputI2S     i2sIn;
 AudioRecordQueue  queue1;
@@ -30,7 +32,8 @@ void loop() {
     queue1.freeBuffer();
 
     counter++;
-    if (counter % 2 == 0) {          // only report every 2nd buffer → half the output rate
+    if (counter >= plotEvery) {
+      counter = 0;
       Serial.print("Amplitude:");
       Serial.println(maxAmplitude);
     }
