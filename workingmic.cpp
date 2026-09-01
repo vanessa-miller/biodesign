@@ -18,6 +18,8 @@ void setup() {
 }
 
 void loop() {
+  static int counter = 0;
+
   if (queue1.available() >= 1) {
     int16_t *data = queue1.readBuffer();
     int maxAmplitude = 0;
@@ -27,9 +29,11 @@ void loop() {
     }
     queue1.freeBuffer();
 
-    // Labelled output for a clean Serial Plotter graph
-    Serial.print("Amplitude:");
-    Serial.println(maxAmplitude);
+    counter++;
+    if (counter % 2 == 0) {          // only report every 2nd buffer → half the output rate
+      Serial.print("Amplitude:");
+      Serial.println(maxAmplitude);
+    }
 
     digitalWrite(ledPin, (maxAmplitude > soundThreshold) ? HIGH : LOW);
   }
